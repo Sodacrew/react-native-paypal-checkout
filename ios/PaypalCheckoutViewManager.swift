@@ -1,11 +1,8 @@
 @objc(PaypalCheckoutViewManager)
 class PaypalCheckoutViewManager: RCTViewManager {
-
   override func view() -> (PaypalCheckoutView) {
     return PaypalCheckoutView()
   }
-
-
 }
 
 class PaypalCheckoutView : UIView {
@@ -35,7 +32,7 @@ class PaypalCheckoutView : UIView {
     return true
   }
 
-    func configurePayPalCheckout() {
+  func configurePayPalCheckout() {
         Checkout.setCreateOrderCallback { createOrderAction in
           createOrderAction.set(orderId: paymentId)
         }
@@ -50,4 +47,5 @@ class PaypalCheckoutView : UIView {
     Checkout.setOnErrorCallback { error in
     onError(["error": error])
     }
+  }
 }
