@@ -6,7 +6,7 @@ import { PaypalCheckoutView } from 'react-native-paypal-checkout';
 export default function App() {
   return (
     <View style={styles.container}>
-      <PaypalCheckoutViewManager color="#32a852" style={styles.box} />
+      <PaypalCheckoutView paymentId="" />
     </View>
   );
 }

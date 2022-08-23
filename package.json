@@ -1,5 +1,5 @@
 {
-  "name": "react-native-paypal-checkout",
+  "name": "@sodacrew/react-native-paypal-checkout",
   "version": "0.1.0",
   "description": "paypal checkout sdk for react native",
   "main": "lib/commonjs/index",
@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/ethan-park-is/react-native-paypal-checkout",
-  "author": "Ethan <ethan.park@sodacrew.com> (https://github.com/ethan-park-is)",
+  "repository": "https://github.com/sodacrew/react-native-paypal-checkout",
+  "author": "Ethan <ethan.park@sodacrew.com> (https://github.com/sodacrew)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethan-park-is/react-native-paypal-checkout/issues"
+    "url": "https://github.com/sodacrew/react-native-paypal-checkout/issues"
   },
-  "homepage": "https://github.com/ethan-park-is/react-native-paypal-checkout#readme",
+  "homepage": "https://github.com/sodacrew/react-native-paypal-checkout#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

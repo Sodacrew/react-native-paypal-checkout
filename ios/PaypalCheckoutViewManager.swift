@@ -4,29 +4,50 @@ class PaypalCheckoutViewManager: RCTViewManager {
   override func view() -> (PaypalCheckoutView) {
     return PaypalCheckoutView()
   }
+
+
 }
 
 class PaypalCheckoutView : UIView {
 
-  @objc var color: String = "" {
-    didSet {
-      self.backgroundColor = hexStringToUIColor(hexColor: color)
-    }
+  @objc var paymentId: NSString;
+  @objc var onApprove: RCTDirectEventBlock;
+  @objc var onError: RCTDirectEventBlock;
+  @objc var onCancel: RCTDirectEventBlock;
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let paymentButton = PayPalButton()
+    self.addSubview(paymentButton)
+
+    NSLayoutConstraint.activate(
+        [
+            paymentButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            paymentButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ]
+    )
+
+    configurePayPalCheckout()
   }
 
-  func hexStringToUIColor(hexColor: String) -> UIColor {
-    let stringScanner = Scanner(string: hexColor)
-
-    if(hexColor.hasPrefix("#")) {
-      stringScanner.scanLocation = 1
-    }
-    var color: UInt32 = 0
-    stringScanner.scanHexInt32(&color)
-
-    let r = CGFloat(Int(color >> 16) & 0x000000FF)
-    let g = CGFloat(Int(color >> 8) & 0x000000FF)
-    let b = CGFloat(Int(color) & 0x000000FF)
-
-    return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: 1)
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
   }
+
+    func configurePayPalCheckout() {
+        Checkout.setCreateOrderCallback { createOrderAction in
+          createOrderAction.set(orderId: paymentId)
+        }
+
+        Checkout.setOnApproveCallback { 
+          onApprove()
+        }
+      Checkout.setOnCancelCallback {
+        onCancel()
+      }
+
+    Checkout.setOnErrorCallback { error in
+    onError(["error": error])
+    }
 }
