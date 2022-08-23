@@ -8,6 +8,7 @@ const LINKING_ERROR =
 
 type PaypalCheckoutProps = {
   paymentId: string;
+  clientId: string;
   onApprove: (event: any) => void;
   onError: (event: any) => void;
   onCancel: (event: any) => void;

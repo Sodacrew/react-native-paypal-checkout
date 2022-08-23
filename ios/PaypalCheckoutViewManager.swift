@@ -1,3 +1,6 @@
+import PayPalCheckout
+import CoreGraphics
+
 @objc(PaypalCheckoutViewManager)
 class PaypalCheckoutViewManager: RCTViewManager {
   override func view() -> (PaypalCheckoutView) {
@@ -7,13 +10,21 @@ class PaypalCheckoutViewManager: RCTViewManager {
 
 class PaypalCheckoutView : UIView {
 
-  @objc var paymentId: NSString;
-  @objc var onApprove: RCTDirectEventBlock;
-  @objc var onError: RCTDirectEventBlock;
-  @objc var onCancel: RCTDirectEventBlock;
+  @objc var clientId: NSString?;
+  @objc var paymentId: NSString?;
+  @objc var onApprove: RCTDirectEventBlock?;
+  @objc var onError: RCTDirectEventBlock?;
+  @objc var onCancel: RCTDirectEventBlock?;
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+
+    let config = CheckoutConfig(
+        clientID: self.clientID as String,
+        environment: .sandbox
+    )
+
+    Checkout.set(config: config)
 
     let paymentButton = PayPalButton()
     self.addSubview(paymentButton)
@@ -28,24 +39,27 @@ class PaypalCheckoutView : UIView {
     configurePayPalCheckout()
   }
 
-  override static func requiresMainQueueSetup() -> Bool {
-    return true
-  }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+
 
   func configurePayPalCheckout() {
         Checkout.setCreateOrderCallback { createOrderAction in
-          createOrderAction.set(orderId: paymentId)
+            createOrderAction.set(orderId: self.paymentId! as String)
         }
 
-        Checkout.setOnApproveCallback { 
-          onApprove()
+        Checkout.setOnApproveCallback { _approve in
+            self.onApprove!([:])
         }
-      Checkout.setOnCancelCallback {
-        onCancel()
-      }
+          Checkout.setOnCancelCallback {
+              self.onCancel!([:])
+          }
 
     Checkout.setOnErrorCallback { error in
-    onError(["error": error])
+        self.onError!(["error": error])
     }
   }
 }
