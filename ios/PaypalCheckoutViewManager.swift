@@ -20,7 +20,7 @@ class PaypalCheckoutView : UIView {
     super.init(frame: frame)
 
     let config = CheckoutConfig(
-        clientID: self.clientID as String,
+        clientID: self.clientId as String,
         environment: .sandbox
     )
 
