@@ -35,4 +35,9 @@ type PaypalTriggerArgs = {
 };
 
 export const triggerCheckout = (args: PaypalTriggerArgs) =>
-  NativeModules.PaypalTrigger.triggerPayPalCheckout(args);
+  NativeModules.PaypalTrigger.triggerPayPalCheckout(
+    args.paymentId,
+    args.onApprove,
+    args.onCancel,
+    args.onError
+  );
