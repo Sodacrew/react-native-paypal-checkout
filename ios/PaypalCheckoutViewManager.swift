@@ -19,12 +19,17 @@ class PaypalCheckoutView : UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    let config = CheckoutConfig(
-        clientID: self.clientId as String,
-        environment: .sandbox
-    )
+    //   guard let unwrappedClientId = self.clientId else {
+    //       print("No clientId provided")
+    //       return;
+    //   }
+      
+    //   let config = CheckoutConfig(
+    //     clientID: unwrappedClientId as String,
+    //         environment: .sandbox
+    //     )
 
-    Checkout.set(config: config)
+    // Checkout.set(config: config)
 
     let paymentButton = PayPalButton()
     self.addSubview(paymentButton)
