@@ -1,16 +1,22 @@
 import PayPalCheckout
 import CoreGraphics
+import UIKit
+import Foundation
 
 @objc(PaypalCheckoutViewManager)
 class PaypalCheckoutViewManager: RCTViewManager {
-  override func view() -> (PaypalCheckoutView) {
-    return PaypalCheckoutView()
+  override func view() -> UIView! {
+    return PaypalCheckoutView(CGRect(origin: .zero, size: CGSize(width: 335, height: 200)))
   }
+  
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
 }
 
 class PaypalCheckoutView : UIView {
 
-  @objc var clientId: NSString?;
   @objc var paymentId: NSString?;
   @objc var onApprove: RCTDirectEventBlock?;
   @objc var onError: RCTDirectEventBlock?;
@@ -18,18 +24,6 @@ class PaypalCheckoutView : UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-
-    //   guard let unwrappedClientId = self.clientId else {
-    //       print("No clientId provided")
-    //       return;
-    //   }
-      
-    //   let config = CheckoutConfig(
-    //     clientID: unwrappedClientId as String,
-    //         environment: .sandbox
-    //     )
-
-    // Checkout.set(config: config)
 
     let paymentButton = PayPalButton()
     self.addSubview(paymentButton)
