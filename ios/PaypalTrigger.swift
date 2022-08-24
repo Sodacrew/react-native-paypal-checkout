@@ -1,10 +1,9 @@
 import PayPalCheckout
 import Foundation
 
-@objc(Trigger)
-class Trigger: NSObject {
-    @objc func triggerPayPalCheckout(paymentId: NSString, onApprove:RCTResponseSenderBlock, onCancel: RCTResponseSenderBlock, onError: RCTResponseSenderBlock) {}
-    
+@objc(PaypalTrigger)
+class PaypalTrigger: NSObject {
+    @objc func triggerPayPalCheckout(paymentId: NSString, onApprove:RCTResponseSenderBlock, onCancel: RCTResponseSenderBlock, onError: RCTResponseSenderBlock) {
     Checkout.start(
         createOrder: { createOrderAction in
           createOrderAction.set(orderId: paymentId! as String)
