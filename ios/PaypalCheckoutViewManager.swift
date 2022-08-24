@@ -66,6 +66,10 @@ class PaypalCheckoutView : UIView {
 
 @objc(PaypalTrigger)
 class PaypalTrigger: NSObject {
+    @objc
+  static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
     @objc 
     func triggerPayPalCheckout(_ id: NSString,  onApprove: @escaping RCTResponseSenderBlock, onCancel: @escaping RCTResponseSenderBlock,  onError: @escaping RCTResponseSenderBlock) {
     Checkout.start(
