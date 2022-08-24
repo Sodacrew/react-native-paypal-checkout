@@ -1,4 +1,9 @@
-import { requireNativeComponent, UIManager, Platform } from 'react-native';
+import {
+  requireNativeComponent,
+  UIManager,
+  Platform,
+  NativeModules,
+} from 'react-native';
 
 const LINKING_ERROR =
   `The package 'react-native-paypal-checkout' doesn't seem to be linked. Make sure: \n\n` +
@@ -21,3 +26,13 @@ export const PaypalCheckoutView =
     : () => {
         throw new Error(LINKING_ERROR);
       };
+
+type PaypalTriggerArgs = {
+  paymentId: string;
+  onApprove: () => void;
+  onError: (error: any) => void;
+  onCancel: () => void;
+};
+
+export const triggerCheckout = (args: PaypalTriggerArgs) =>
+  NativeModules.Trigger.triggerPayPalCheckout(args);
