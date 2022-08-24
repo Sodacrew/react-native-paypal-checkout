@@ -19,4 +19,5 @@ class PaypalTrigger: NSObject {
              onError!(["error": error])
         }
     )
+  }
 }
