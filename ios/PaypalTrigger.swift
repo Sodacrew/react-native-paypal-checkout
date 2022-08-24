@@ -3,20 +3,17 @@ import Foundation
 
 @objc(PaypalTrigger)
 class PaypalTrigger: NSObject {
-    @objc func triggerPayPalCheckout(paymentId: NSString, onApprove:RCTResponseSenderBlock, onCancel: RCTResponseSenderBlock, onError: RCTResponseSenderBlock) {
+    @objc 
+    func triggerPayPalCheckout(_ id: NSString,  onApprove: @escaping RCTResponseSenderBlock, onCancel: @escaping RCTResponseSenderBlock,  onError: @escaping RCTResponseSenderBlock) {
     Checkout.start(
         createOrder: { createOrderAction in
-          createOrderAction.set(orderId: paymentId! as String)
-        }, onApprove: { _approval in
-
-          onApprove!([:])
-        }
-
-        , onCancel: {
-              onCancel!([:])
-
-        }, onError: { error in
-             onError!(["error": error])
+          createOrderAction.set(orderId: id as String)
+        }, onApprove: { approval in
+          onApprove([])
+        }, onCancel: {
+              onCancel([])
+        }, onError:  { error in
+             onError([error])
         }
     )
   }
