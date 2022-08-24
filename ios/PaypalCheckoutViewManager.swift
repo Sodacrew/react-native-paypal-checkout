@@ -6,7 +6,7 @@ import Foundation
 @objc(PaypalCheckoutViewManager)
 class PaypalCheckoutViewManager: RCTViewManager {
   override func view() -> UIView! {
-    return PaypalCheckoutView(frame: CGRect(origin: .zero, size: CGSize(width: 335, height: 200)))
+    return PaypalCheckoutView()
   }
   
   override static func requiresMainQueueSetup() -> Bool {

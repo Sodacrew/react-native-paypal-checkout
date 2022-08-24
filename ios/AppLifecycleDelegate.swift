@@ -10,6 +10,8 @@ public class AppLifecycleDelegate: ExpoAppDelegateSubscriber {
         )
 
     Checkout.set(config: config)
+    print("PayPal Checkout SDK version: \(Checkout.version())")
+    
         return true
     }
 }
