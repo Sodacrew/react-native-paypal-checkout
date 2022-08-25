@@ -71,7 +71,7 @@ class PaypalTrigger: NSObject {
     return true
   }
     @objc 
-    func triggerPayPalCheckout(_ id: NSString,  onApprove: @escaping RCTResponseSenderBlock, onCancel: @escaping RCTResponseSenderBlock,  onError: @escaping RCTResponseSenderBlock) {
+    func triggerPayPalCheckout(id: NSString,  onApproveCallback onApprove: @escaping RCTResponseSenderBlock, onCancelCallback onCancel: @escaping RCTResponseSenderBlock,  onErrorCallback onError: @escaping RCTResponseSenderBlock) {
     Checkout.start(
         createOrder: { createOrderAction in
           createOrderAction.set(orderId: id as String)
