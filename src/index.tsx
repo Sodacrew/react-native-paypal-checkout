@@ -18,6 +18,6 @@ type NativeProps = {
 const PaypalCheckoutViewNative =
   requireNativeComponent<NativeProps>('PaypalCheckoutView');
 
-export const PaypalCheckoutView = (props: NativeProps) => {
+export const PaypalCheckoutButton = (props: NativeProps) => {
   return <PaypalCheckoutViewNative {...props} />;
 };
