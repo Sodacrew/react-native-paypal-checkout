@@ -49,11 +49,11 @@ var paymentButton: PayPalButton?
             self.onMessage!(["message": "approved"])
         }
           Checkout.setOnCancelCallback {
-              self.onCancel!(["message": "cancelled"])
+              self.onMessage!(["message": "cancelled"])
           }
 
     Checkout.setOnErrorCallback { error in
-        self.onError!(["error": error])
+        self.onMessage!(["error": error])
     }
   }
 }
