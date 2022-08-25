@@ -9,9 +9,7 @@ class PaypalCheckoutView : UIView {
 var paymentButton: PayPalButton?
 
   @objc var paymentId: NSString?;
-  @objc var onApprove: RCTDirectEventBlock?;
-  @objc var onError: RCTDirectEventBlock?;
-  @objc var onCancel: RCTDirectEventBlock?;
+  @objc var onMessage: RCTDirectEventBlock?;
 
 
       override func didSetProps(_ changedProps: [String]!) {
@@ -48,10 +46,10 @@ var paymentButton: PayPalButton?
         }
 
         Checkout.setOnApproveCallback { _approve in
-            self.onApprove!([:])
+            self.onMessage!(["message": "approved"])
         }
           Checkout.setOnCancelCallback {
-              self.onCancel!([:])
+              self.onCancel!(["message": "cancelled"])
           }
 
     Checkout.setOnErrorCallback { error in

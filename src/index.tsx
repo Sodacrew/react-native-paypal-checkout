@@ -15,9 +15,7 @@ const LINKING_ERROR =
 type NativeProps = {
   style?: StyleProp<ViewStyle>;
   paymentId: string;
-  onApprove: (event: any) => void;
-  onError: (event: any) => void;
-  onCancel: (event: any) => void;
+  onMessage?: (event: any) => void;
 };
 
 const ComponentName = 'PaypalCheckoutView';
