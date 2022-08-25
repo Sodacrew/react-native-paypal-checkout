@@ -1,16 +1,11 @@
-import {
-  requireNativeComponent,
-  UIManager,
-  Platform,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import { requireNativeComponent, StyleProp, ViewStyle } from 'react-native';
+import React from 'react';
 
-const LINKING_ERROR =
-  `The package 'react-native-paypal-checkout' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+// const LINKING_ERROR =
+//   `The package 'react-native-paypal-checkout' doesn't seem to be linked. Make sure: \n\n` +
+//   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
+//   '- You rebuilt the app after installing the package\n' +
+//   '- You are not using Expo managed workflow\n';
 
 type NativeProps = {
   style?: StyleProp<ViewStyle>;
@@ -18,11 +13,11 @@ type NativeProps = {
   onMessage?: (event: any) => void;
 };
 
-const ComponentName = 'PaypalCheckoutView';
+// const ComponentName = 'PaypalCheckoutView';
 
-export const PaypalCheckoutView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<NativeProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+const PaypalCheckoutViewNative =
+  requireNativeComponent<NativeProps>('PaypalCheckoutView');
+
+export const PaypalCheckoutView = (props: NativeProps) => {
+  return <PaypalCheckoutViewNative {...props} />;
+};
