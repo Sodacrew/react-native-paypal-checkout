@@ -1,4 +1,3 @@
- 10 lines (9 sloc)  374 Bytes
 #import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 #import <React/RCTViewManager.h>
