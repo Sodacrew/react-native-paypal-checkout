@@ -2,7 +2,8 @@ import {
   requireNativeComponent,
   UIManager,
   Platform,
-  NativeModules,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 
 const LINKING_ERROR =
@@ -11,7 +12,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-type PaypalCheckoutProps = {
+type NativeProps = {
+  style?: StyleProp<ViewStyle>;
   paymentId: string;
   onApprove: (event: any) => void;
   onError: (event: any) => void;
@@ -22,22 +24,7 @@ const ComponentName = 'PaypalCheckoutView';
 
 export const PaypalCheckoutView =
   UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<PaypalCheckoutProps>(ComponentName)
+    ? requireNativeComponent<NativeProps>(ComponentName)
     : () => {
         throw new Error(LINKING_ERROR);
       };
-
-type PaypalTriggerArgs = {
-  paymentId: string;
-  onApprove: () => void;
-  onError: (error: any) => void;
-  onCancel: () => void;
-};
-
-export const triggerCheckout = (args: PaypalTriggerArgs) =>
-  NativeModules.PaypalTrigger.triggerPayPalCheckout(
-    args.paymentId,
-    args.onApprove,
-    args.onCancel,
-    args.onError
-  );
