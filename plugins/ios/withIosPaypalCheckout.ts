@@ -29,25 +29,25 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
       DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP,
       `${found[0]}
         // add paypal checkout
-        PPCheckoutConfig *config = [[PPCheckoutConfig alloc] initWithClientID:@"${
-          props.clientId
-        }" 
-                                                                    returnUrl:@"${
-                                                                      props.returnUrl
-                                                                    }" 
-                                                                  createOrder:nil 
-                                                                    onApprove:nil 
-                                                             onShippingChange:nil 
-                                                                     onCancel:nil
-                                                                      onError:nil 
-                                                                  environment:${
-                                                                    props.environment ===
-                                                                    'sandbox'
-                                                                      ? 'PPCEnvironmentSandbox'
-                                                                      : 'PPCEnvironmentLive'
-                                                                  }];
+    PPCheckoutConfig *config = [[PPCheckoutConfig alloc] initWithClientID:@"${
+      props.clientId
+    }" 
+                                                                returnUrl:@"${
+                                                                  props.returnUrl
+                                                                }" 
+                                                                createOrder:nil 
+                                                                onApprove:nil 
+                                                            onShippingChange:nil 
+                                                                    onCancel:nil
+                                                                    onError:nil 
+                                                                environment:${
+                                                                  props.environment ===
+                                                                  'sandbox'
+                                                                    ? 'PPCEnvironmentSandbox'
+                                                                    : 'PPCEnvironmentLive'
+                                                                }];
       
-            [PPCheckout setConfig:config];`
+    [PPCheckout setConfig:config];`
     );
 
     _props.modResults.contents = contents.replace(
