@@ -1,9 +1,11 @@
 import { StyleProp, ViewStyle } from 'react-native';
 interface TriggerArgs {
     paymentId: string;
-    onMessage: (event: any) => void;
+    onMessage: (error: any, result: any) => void;
 }
-interface NativeProps extends TriggerArgs {
+interface NativeProps {
+    paymentId: string;
+    onMessage: (event: any) => void;
     style?: StyleProp<ViewStyle>;
 }
 export declare const PaypalCheckoutButton: (props: NativeProps) => JSX.Element;
