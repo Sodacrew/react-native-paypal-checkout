@@ -1,4 +1,4 @@
-import { requireNativeComponent, StyleProp, ViewStyle } from 'react-native';
+import { requireNativeComponent, StyleProp, ViewStyle, NativeModules } from 'react-native';
 import React from 'react';
 
 // const LINKING_ERROR =
@@ -7,13 +7,14 @@ import React from 'react';
 //   '- You rebuilt the app after installing the package\n' +
 //   '- You are not using Expo managed workflow\n';
 
-type NativeProps = {
-  style?: StyleProp<ViewStyle>;
+interface TriggerArgs {
   paymentId: string;
-  onMessage?: (event: any) => void;
-};
+  onMessage: (event: any) => void;
+}
+interface NativeProps extends TriggerArgs {
+  style?: StyleProp<ViewStyle>;
 
-// const ComponentName = 'PaypalCheckoutView';
+};
 
 const PaypalCheckoutViewNative =
   requireNativeComponent<NativeProps>('PaypalCheckoutView');
@@ -21,3 +22,6 @@ const PaypalCheckoutViewNative =
 export const PaypalCheckoutButton = (props: NativeProps) => {
   return <PaypalCheckoutViewNative {...props} />;
 };
+
+
+export const triggerPaypalCheckout =(args: TriggerArgs) => NativeModules.PaypayCheckout.triggerPaypalCheckout(args.paymentId, args.onMessage)
