@@ -16,7 +16,7 @@ const withExpoConfigPlugins: ConfigPlugin<PaypalCheckoutPluginProps> = (
   return config;
 };
 
-const pak = require('@react-native-seoul/kakao-login/package.json');
+const pak = require('@sodacrew/react-native-paypal-checkout/package.json');
 export default createRunOncePlugin(
   withExpoConfigPlugins,
   pak.name,
