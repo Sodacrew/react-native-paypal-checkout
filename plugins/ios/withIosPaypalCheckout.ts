@@ -6,6 +6,7 @@ const DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP = RegExp(
   'm'
 );
 const COMMENT = '// add paypal checkout';
+const HEADER = '#import <PayPalCheckout/PayPalCheckout-Swift.h>';
 
 const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
   config,
@@ -47,6 +48,13 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
                                                                   }];
       
             [PPCheckout setConfig:config];`
+    );
+
+    _props.modResults.contents = contents.replace(
+      `#import "AppDelegate.h"`,
+      `#import "AppDelegate.h"
+        
+%{HEADER}}`
     );
     return _props;
   });
