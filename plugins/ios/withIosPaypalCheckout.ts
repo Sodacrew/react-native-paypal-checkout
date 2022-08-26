@@ -43,7 +43,7 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
                                                                   environment:${
                                                                     props.environment ===
                                                                     'sandbox'
-                                                                      ? 'PPCheckoutEnvironmentSandbox'
+                                                                      ? 'PPCEnvironmentSandbox'
                                                                       : 'PPCEnvironmentLive'
                                                                   }];
       
