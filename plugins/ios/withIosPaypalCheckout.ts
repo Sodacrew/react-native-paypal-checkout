@@ -13,18 +13,18 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
   props
 ) => {
   return withAppDelegate(config, (_props) => {
-    const { contents } = _props.modResults;
-
-    const found = DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP.exec(contents);
+    const found = DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP.exec(
+      _props.modResults.contents
+    );
 
     if (!found) {
       throw new Error('didFinishLaunchingWithOptions not found in AppDelegate');
     }
 
-    if (contents.includes(COMMENT)) {
+    if (_props.modResults.contents.includes(COMMENT)) {
       console.log('already added paypal checkout');
     } else {
-      _props.modResults.contents = contents.replace(
+      _props.modResults.contents = _props.modResults.contents.replace(
         DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP,
         `${found[0]}
         // add paypal checkout
@@ -50,10 +50,10 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
       );
     }
 
-    if (contents.includes(HEADER)) {
+    if (_props.modResults.contents.includes(HEADER)) {
       console.log('already added paypal checkout header');
     } else {
-      _props.modResults.contents = contents.replace(
+      _props.modResults.contents = _props.modResults.contents.replace(
         `#import "AppDelegate.h"`,
         `#import "AppDelegate.h"
               
