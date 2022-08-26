@@ -15,19 +15,18 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
   return withAppDelegate(config, (_props) => {
     const { contents } = _props.modResults;
 
-    if (contents.includes(COMMENT)) {
-      console.log('already added paypal checkout');
-      return _props;
-    }
-
     const found = DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP.exec(contents);
 
     if (!found) {
       throw new Error('didFinishLaunchingWithOptions not found in AppDelegate');
     }
-    _props.modResults.contents = contents.replace(
-      DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP,
-      `${found[0]}
+
+    if (contents.includes(COMMENT)) {
+      console.log('already added paypal checkout');
+    } else {
+      _props.modResults.contents = contents.replace(
+        DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP,
+        `${found[0]}
         // add paypal checkout
     PPCheckoutConfig *config = [[PPCheckoutConfig alloc] initWithClientID:@"${
       props.clientId
@@ -46,16 +45,22 @@ const modifyAppDelegate: ConfigPlugin<PaypalCheckoutPluginProps> = (
                                                                     ? 'PPCEnvironmentSandbox'
                                                                     : 'PPCEnvironmentLive'
                                                                 }];
-      
+    
     [PPCheckout setConfig:config];`
-    );
+      );
+    }
 
-    _props.modResults.contents = contents.replace(
-      `#import "AppDelegate.h"`,
-      `#import "AppDelegate.h"
-        
-%{HEADER}}`
-    );
+    if (contents.includes(HEADER)) {
+      console.log('already added paypal checkout header');
+    } else {
+      _props.modResults.contents = contents.replace(
+        `#import "AppDelegate.h"`,
+        `#import "AppDelegate.h"
+              
+${HEADER}`
+      );
+    }
+
     return _props;
   });
 };

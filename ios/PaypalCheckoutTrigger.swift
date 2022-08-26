@@ -13,7 +13,7 @@ class PaypalCheckoutTrigger: NSObject {
                 }, onApprove: { _approval in
                     onMessage([NSNull(), "approved"])
                 }, onCancel: {
-                    onMessage([NSNull(), "cancel"])
+                    onMessage([NSNull(), "cancelled"])
                 }, onError: { error in
                     onMessage([error])
                 }
