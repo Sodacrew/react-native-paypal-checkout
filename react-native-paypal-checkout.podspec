@@ -17,5 +17,4 @@ Pod::Spec.new do |s|
 
   s.dependency "React-Core"
   s.dependency "PayPalCheckout"
-  s.dependency "ExpoModulesCore"
 end
