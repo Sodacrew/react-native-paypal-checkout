@@ -1,4 +1,4 @@
-package com.reactnativepaypalcheckout
+package com.sodacrew.reactnativepaypalcheckout
 
 import android.graphics.Color
 import android.view.View
