@@ -24,15 +24,16 @@ const modifyProjectBuildGradle: ConfigPlugin = (config) => {
       _props.modResults.contents = _props.modResults.contents.replace(
         /allprojects\s?{\n\s*repositories\s?{/,
         `allprojects {
-        repositories {
-                ${PAYPAL_REPO_COMMENT}
-                maven {
-                    url  "https://cardinalcommerceprod.jfrog.io/artifactory/android"
-                    credentials {
-                        username 'paypal_sgerritz'
-                        password 'AKCp8jQ8tAahqpT5JjZ4FRP2mW7GMoFZ674kGqHmupTesKeAY2G8NcmPKLuTxTGkKjDLRzDUQ'
-                    }
-                }
+    repositories {
+        ${PAYPAL_REPO_COMMENT}
+        mavenCentral()
+        maven {
+            url  "https://cardinalcommerceprod.jfrog.io/artifactory/android"
+            credentials {
+                username paypal_sgerritz
+                password AKCp8jQ8tAahqpT5JjZ4FRP2mW7GMoFZ674kGqHmupTesKeAY2G8NcmPKLuTxTGkKjDLRzDUQ
+            }
+        }
                 `
       );
     }
