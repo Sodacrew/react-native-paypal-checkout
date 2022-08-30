@@ -73,23 +73,23 @@ const modifyAppBuildGradle: ConfigPlugin<PaypalCheckoutPluginProps> = (
         );
       }
 
-      if (_props.modResults.contents.includes(KOTLIN_OPTIONS)) {
-        _props.modResults.contents = _props.modResults.contents.replace(
-          KOTLIN_OPTIONS,
-          `${KOTLIN_OPTIONS}
-        jvmTarget = "1.8"
-    }`
-        );
-      } else {
-        _props.modResults.contents = _props.modResults.contents.replace(
-          'android {',
-          `android {
-    ${KOTLIN_OPTIONS}
-        jvmTarget = "1.8"
-    }
-        `
-        );
-      }
+      //   if (_props.modResults.contents.includes(KOTLIN_OPTIONS)) {
+      //     _props.modResults.contents = _props.modResults.contents.replace(
+      //       KOTLIN_OPTIONS,
+      //       `${KOTLIN_OPTIONS}
+      //     jvmTarget = "1.8"
+      // }`
+      //     );
+      //   } else {
+      //     _props.modResults.contents = _props.modResults.contents.replace(
+      //       'android {',
+      //       `android {
+      // ${KOTLIN_OPTIONS}
+      //     jvmTarget = "1.8"
+      // }
+      //     `
+      //     );
+      //   }
 
       if (_props.modResults.contents.includes(DEPENDENCY_NAME)) {
         console.log('paypal checkout dependency already added');
