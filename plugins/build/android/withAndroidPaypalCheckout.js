@@ -5,7 +5,7 @@ const config_plugins_1 = require("@expo/config-plugins");
 const PAYPAL_REPO_COMMENT = '// add paypal checkout repository';
 const PAYPAL_COMPLIE_OPTIONS_COMMENT = '// add paypal checkout compile options';
 const COMPILE_OPTIONS = 'compileOptions {';
-const KOTLIN_OPTIONS = 'kotlinOptions {';
+// const KOTLIN_OPTIONS = 'kotlinOptions {';
 const DEPENDENCY_NAME = 'com.paypal.checkout:android-sdk:';
 const IMPORT_NAME = 'import com.paypal.checkout.PayPalCheckout';
 const modifyProjectBuildGradle = (config) => {
@@ -93,6 +93,9 @@ const modifyMainApllication = (config, props) => {
 import com.paypal.checkout.config.Environment;
 import com.paypal.checkout.createorder.CurrencyCode;
 import com.paypal.checkout.createorder.UserAction;
+import com.paypal.checkout.config.CheckoutConfig;
+
+import com.sodacrew.reactnativepaypalcheckout.PaypalCheckoutPackage;
 
 public class MainApplication extends Application`);
         _props.modResults.contents = _props.modResults.contents.replace(`super.onCreate();`, `super.onCreate();
@@ -100,15 +103,18 @@ public class MainApplication extends Application`);
         this,
         "${props.clientId}",
         ${props.environment === 'sandbox'
-            ? 'Envrionment.SANDBOX'
-            : 'Envrionment.PRODUCTION'},
+            ? 'Environment.SANDBOX'
+            : 'Environment.PRODUCTION'},
         "${props.returnUrl}",
         CurrencyCode.USD,
         UserAction.PAY_NOW
     ));
 `);
-        _props.modResults.contents = _props.modResults.contents.replace('return packages;', `packages.add(new PaypalCheckoutPackage());
-                return packages;`);
+        // _props.modResults.contents = _props.modResults.contents.replace(
+        //   'return packages;',
+        //   `packages.add(new PaypalCheckoutPackage());
+        //             return packages;`
+        // );
         return _props;
     });
 };

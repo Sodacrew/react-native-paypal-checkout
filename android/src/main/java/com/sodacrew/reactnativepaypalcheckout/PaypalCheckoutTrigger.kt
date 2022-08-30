@@ -1,16 +1,16 @@
 
 package com.sodacrew.reactnativepaypalcheckout
 
-import android.content.Context
-import android.os.Build
-import android.util.Log
-import android.widget.Toast
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 
 import com.paypal.checkout.PayPalCheckout
+import com.paypal.checkout.approve.OnApprove
+import com.paypal.checkout.cancel.OnCancel
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.error.OnError
 
 class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -29,7 +29,7 @@ class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) : ReactContex
                 onMessage(null, "cancelled")
             },
             onError = OnError { errorInfo ->
-                onMessage(errorInfo)
+                onMessage(errorInfo.error.message)
             }
         )
 

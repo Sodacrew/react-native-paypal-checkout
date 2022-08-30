@@ -10,7 +10,7 @@ const PAYPAL_REPO_COMMENT = '// add paypal checkout repository';
 const PAYPAL_COMPLIE_OPTIONS_COMMENT = '// add paypal checkout compile options';
 
 const COMPILE_OPTIONS = 'compileOptions {';
-const KOTLIN_OPTIONS = 'kotlinOptions {';
+// const KOTLIN_OPTIONS = 'kotlinOptions {';
 
 const DEPENDENCY_NAME = 'com.paypal.checkout:android-sdk:';
 
@@ -122,6 +122,9 @@ const modifyMainApllication: ConfigPlugin<PaypalCheckoutPluginProps> = (
 import com.paypal.checkout.config.Environment;
 import com.paypal.checkout.createorder.CurrencyCode;
 import com.paypal.checkout.createorder.UserAction;
+import com.paypal.checkout.config.CheckoutConfig;
+
+import com.sodacrew.reactnativepaypalcheckout.PaypalCheckoutPackage;
 
 public class MainApplication extends Application`
     );
@@ -134,8 +137,8 @@ public class MainApplication extends Application`
         "${props.clientId}",
         ${
           props.environment === 'sandbox'
-            ? 'Envrionment.SANDBOX'
-            : 'Envrionment.PRODUCTION'
+            ? 'Environment.SANDBOX'
+            : 'Environment.PRODUCTION'
         },
         "${props.returnUrl}",
         CurrencyCode.USD,
@@ -144,11 +147,11 @@ public class MainApplication extends Application`
 `
     );
 
-    _props.modResults.contents = _props.modResults.contents.replace(
-      'return packages;',
-      `packages.add(new PaypalCheckoutPackage());
-                return packages;`
-    );
+    // _props.modResults.contents = _props.modResults.contents.replace(
+    //   'return packages;',
+    //   `packages.add(new PaypalCheckoutPackage());
+    //             return packages;`
+    // );
     return _props;
   });
 };
