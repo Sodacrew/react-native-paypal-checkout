@@ -157,7 +157,7 @@ export const withAndroidPaypalCheckout: ConfigPlugin<
   PaypalCheckoutPluginProps
 > = (config, props) => {
   modifyProjectBuildGradle(config);
-  modifyAppBuildGradle(config, props);
+  //   modifyAppBuildGradle(config, props);
   modifyMainApllication(config, props);
 
   return config;

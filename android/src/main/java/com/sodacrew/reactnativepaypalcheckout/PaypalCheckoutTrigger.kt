@@ -9,8 +9,8 @@ import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import java.util.*
-import com.paypal.checkout.PayPalCheckout;
+
+import com.paypal.checkout.PayPalCheckout
 
 class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
