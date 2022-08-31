@@ -1,10 +1,14 @@
 import {
+  AndroidConfig,
   ConfigPlugin,
+  withAndroidManifest,
   withAppBuildGradle,
   withMainApplication,
   withProjectBuildGradle,
 } from '@expo/config-plugins';
 import type { PaypalCheckoutPluginProps } from '../withPaypalCheckout';
+
+const { getMainApplicationOrThrow } = AndroidConfig.Manifest;
 
 const PAYPAL_REPO_COMMENT = '// add paypal checkout repository';
 const PAYPAL_COMPLIE_OPTIONS_COMMENT = '// add paypal checkout compile options';
@@ -156,12 +160,68 @@ public class MainApplication extends Application`
   });
 };
 
+const modifyAndroidManifest: ConfigPlugin<PaypalCheckoutPluginProps> = (
+  config,
+  props
+) => {
+  return withAndroidManifest(config, (_props) => {
+    const mainApplication = getMainApplicationOrThrow(_props.modResults);
+
+    if (!mainApplication) return _props;
+
+    const paypalRedirectActivityIndex =
+      mainApplication.activity?.findIndex(
+        (activity) =>
+          activity.$['android:name'] ===
+          'com.paypal.openid.RedirectUriReceiverActivity'
+      ) ?? 0;
+
+    const newPaypalRedirectActivity = {
+      '$': {
+        'android:name': 'com.paypal.openid.RedirectUriReceiverActivity',
+        'android:excludeFromRecents': 'true',
+        // 'android:theme': '@style/PYPLAppTheme',
+      },
+      'intent-filter': [
+        {
+          action: {
+            $: {
+              'android:name': 'android.intent.action.VIEW',
+            },
+          },
+          data: {
+            $: {
+              'android:host': 'paypalpay',
+              'android:scheme': `${props.returnUrl.split('://')[0]}`,
+            },
+          },
+          category: [
+            { $: { 'android:name': 'android.intent.category.DEFAULT' } },
+            { $: { 'android:name': 'android.intent.category.BROWSABLE' } },
+          ],
+        },
+      ],
+    } as any;
+
+    if (paypalRedirectActivityIndex < 0) {
+      if (!mainApplication.activity) {
+        mainApplication.activity = [newPaypalRedirectActivity];
+      } else {
+        mainApplication.activity.push(newPaypalRedirectActivity);
+      }
+    }
+
+    return _props;
+  });
+};
+
 export const withAndroidPaypalCheckout: ConfigPlugin<
   PaypalCheckoutPluginProps
 > = (config, props) => {
   modifyProjectBuildGradle(config);
   modifyAppBuildGradle(config, props);
   modifyMainApllication(config, props);
+  modifyAndroidManifest(config, props);
 
   return config;
 };

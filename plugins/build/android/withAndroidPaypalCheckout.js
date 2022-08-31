@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withAndroidPaypalCheckout = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
+const { getMainApplicationOrThrow } = config_plugins_1.AndroidConfig.Manifest;
 const PAYPAL_REPO_COMMENT = '// add paypal checkout repository';
 const PAYPAL_COMPLIE_OPTIONS_COMMENT = '// add paypal checkout compile options';
 const COMPILE_OPTIONS = 'compileOptions {';
@@ -118,10 +119,56 @@ public class MainApplication extends Application`);
         return _props;
     });
 };
+const modifyAndroidManifest = (config, props) => {
+    return (0, config_plugins_1.withAndroidManifest)(config, (_props) => {
+        var _a, _b;
+        const mainApplication = getMainApplicationOrThrow(_props.modResults);
+        if (!mainApplication)
+            return _props;
+        const paypalRedirectActivityIndex = (_b = (_a = mainApplication.activity) === null || _a === void 0 ? void 0 : _a.findIndex((activity) => activity.$['android:name'] ===
+            'com.paypal.openid.RedirectUriReceiverActivity')) !== null && _b !== void 0 ? _b : 0;
+        const newPaypalRedirectActivity = {
+            '$': {
+                'android:name': 'com.paypal.openid.RedirectUriReceiverActivity',
+                'android:excludeFromRecents': 'true',
+                // 'android:theme': '@style/PYPLAppTheme',
+            },
+            'intent-filter': [
+                {
+                    action: {
+                        $: {
+                            'android:name': 'android.intent.action.VIEW',
+                        },
+                    },
+                    data: {
+                        $: {
+                            'android:host': 'paypalpay',
+                            'android:scheme': `${props.returnUrl.split('://')[0]}`,
+                        },
+                    },
+                    category: [
+                        { $: { 'android:name': 'android.intent.category.DEFAULT' } },
+                        { $: { 'android:name': 'android.intent.category.BROWSABLE' } },
+                    ],
+                },
+            ],
+        };
+        if (paypalRedirectActivityIndex < 0) {
+            if (!mainApplication.activity) {
+                mainApplication.activity = [newPaypalRedirectActivity];
+            }
+            else {
+                mainApplication.activity.push(newPaypalRedirectActivity);
+            }
+        }
+        return _props;
+    });
+};
 const withAndroidPaypalCheckout = (config, props) => {
     modifyProjectBuildGradle(config);
     modifyAppBuildGradle(config, props);
     modifyMainApllication(config, props);
+    modifyAndroidManifest(config, props);
     return config;
 };
 exports.withAndroidPaypalCheckout = withAndroidPaypalCheckout;

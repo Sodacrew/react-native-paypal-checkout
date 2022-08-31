@@ -1,19 +1,18 @@
-
 package com.sodacrew.reactnativepaypalcheckout
+
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 
-import com.paypal.checkout.PayPalCheckout
-import com.paypal.checkout.approve.OnApprove
-import com.paypal.checkout.cancel.OnCancel
-import com.paypal.checkout.createorder.CreateOrder
-import com.paypal.checkout.error.OnError
 
-class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) :
+    ReactContextBaseJavaModule(reactContext) {
 
+    private var paymentSheetFragment: PaymentSheetFragment? = null
     override fun getName(): String {
         return "PaypalCheckoutTrigger"
     }
@@ -21,22 +20,28 @@ class PaypalCheckoutTrigger(reactContext: ReactApplicationContext) : ReactContex
 
     @ReactMethod
     fun triggerPaypalCheckout(paymentId: String, onMessage: Callback) {
-        PayPalCheckout.registerCallbacks(
-            onApprove = OnApprove { approval ->
-                onMessage(null, "approved")
-            },
-            onCancel = OnCancel {
-                onMessage(null, "cancelled")
-            },
-            onError = OnError { errorInfo ->
-                onMessage(errorInfo.error.message)
-            }
-        )
 
-        PayPalCheckout.startCheckout(
-            CreateOrder { createOrderActions ->
-                createOrderActions.set(paymentId)
+        paymentSheetFragment?.removeFragment(reactApplicationContext)
+        paymentSheetFragment = PaymentSheetFragment(reactApplicationContext, onMessage)
+        try {
+            (reactApplicationContext.currentActivity as? AppCompatActivity)?.supportFragmentManager?.let {
+                it.beginTransaction()
+                    .add(paymentSheetFragment!!, PaymentSheetFragment.TAG)
+                    .commit()
             }
-        )
+        } catch (error: IllegalStateException) {
+            onMessage(error.message)
+        }
+
+        paymentSheetFragment?.triggerPaypalCheckout(paymentId)
+    }
+}
+
+
+fun Fragment.removeFragment(context: ReactApplicationContext) {
+    (context.currentActivity as? AppCompatActivity)?.supportFragmentManager?.let {
+        if (it.findFragmentByTag(this.tag) != null) {
+            it.beginTransaction().remove(this).commitAllowingStateLoss()
+        }
     }
 }
