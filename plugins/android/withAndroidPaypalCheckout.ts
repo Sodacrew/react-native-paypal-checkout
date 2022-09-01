@@ -142,7 +142,7 @@ public class MainApplication extends Application`
         ${
           props.environment === 'sandbox'
             ? 'Environment.SANDBOX'
-            : 'Environment.PRODUCTION'
+            : 'Environment.LIVE'
         },
         "${props.returnUrl}",
         CurrencyCode.USD,

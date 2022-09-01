@@ -105,7 +105,7 @@ public class MainApplication extends Application`);
         "${props.clientId}",
         ${props.environment === 'sandbox'
             ? 'Environment.SANDBOX'
-            : 'Environment.PRODUCTION'},
+            : 'Environment.LIVE'},
         "${props.returnUrl}",
         CurrencyCode.USD,
         UserAction.PAY_NOW
