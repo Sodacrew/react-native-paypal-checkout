@@ -4,9 +4,6 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.facebook.react.bridge.*
 
-
-import java.io.ByteArrayOutputStream
-
 import com.paypal.checkout.PayPalCheckout
 import com.paypal.checkout.approve.OnApprove
 import com.paypal.checkout.cancel.OnCancel
