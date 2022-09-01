@@ -130,5 +130,5 @@ dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.paypal.checkout:android-sdk:0.7.3'
+  implementation 'com.paypal.checkout:android-sdk:0.6.3'
 }
