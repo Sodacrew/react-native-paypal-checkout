@@ -180,7 +180,7 @@ const modifyAndroidManifest: ConfigPlugin<PaypalCheckoutPluginProps> = (
       '$': {
         'android:name': 'com.paypal.openid.RedirectUriReceiverActivity',
         'android:excludeFromRecents': 'true',
-        // 'android:theme': '@style/PYPLAppTheme',
+        'android:theme': '@style/PYPLAppTheme',
       },
       'intent-filter': [
         {
