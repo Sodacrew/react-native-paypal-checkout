@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withIosPaypalCheckout = void 0;
 const config_plugins_1 = require("@expo/config-plugins");
-const DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP = RegExp(/(\- \(BOOL\)application:\(UIApplication \*\)application didFinishLaunchingWithOptions:\(NSDictionary \*\)launchOptions)\n\{/, 'm');
+const DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP = RegExp(/(- \(BOOL\)application:\(UIApplication \*\)application didFinishLaunchingWithOptions:\(NSDictionary \*\)launchOptions)\n\{/, 'm');
 const COMMENT = '// add paypal checkout';
 const HEADER = '#import <PayPalCheckout/PayPalCheckout-Swift.h>';
 const modifyAppDelegate = (config, props) => {

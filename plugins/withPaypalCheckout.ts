@@ -1,4 +1,4 @@
-import { withAndroidPaypalCheckout } from './android/withAndroidPaypalCheckout';
+// import { withAndroidPaypalCheckout } from './android/withAndroidPaypalCheckout';
 import { ConfigPlugin, createRunOncePlugin } from '@expo/config-plugins';
 import { withIosPaypalCheckout } from './ios/withIosPaypalCheckout';
 
@@ -14,7 +14,7 @@ const withExpoConfigPlugins: ConfigPlugin<PaypalCheckoutPluginProps> = (
   props
 ) => {
   withIosPaypalCheckout(config, props);
-  withAndroidPaypalCheckout(config, props);
+  // withAndroidPaypalCheckout(config, props);
 
   return config;
 };

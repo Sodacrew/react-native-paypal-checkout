@@ -2,7 +2,7 @@ import { ConfigPlugin, withAppDelegate } from '@expo/config-plugins';
 import type { PaypalCheckoutPluginProps } from '../withPaypalCheckout';
 
 const DID_FINISH_LAUNCHING_WITH_OPTIONS_REGEXP = RegExp(
-  /(\- \(BOOL\)application:\(UIApplication \*\)application didFinishLaunchingWithOptions:\(NSDictionary \*\)launchOptions)\n\{/,
+  /(- \(BOOL\)application:\(UIApplication \*\)application didFinishLaunchingWithOptions:\(NSDictionary \*\)launchOptions)\n\{/,
   'm'
 );
 const COMMENT = '// add paypal checkout';
