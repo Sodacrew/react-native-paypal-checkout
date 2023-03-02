@@ -1,6 +1,6 @@
 {
   "name": "@sodacrew/react-native-paypal-checkout",
-  "version": "1.5.9",
+  "version": "1.6.0",
   "description": "paypal checkout sdk for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
