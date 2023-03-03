@@ -5,16 +5,16 @@ import PayPalCheckout
 class PaypalCheckoutTrigger: NSObject {
     
     @objc
-    func triggerPaypalCheckout(_ paymentId: NSString, onMessageCallback onMessage: @escaping RCTResponseSenderBlock, needDetails shoudGetOrderDetails: bool) {
+    func triggerPaypalCheckout(_ paymentId: NSString, needDetails shouldGetOrderDetails: Bool, onMessageCallback onMessage: @escaping RCTResponseSenderBlock) {
         DispatchQueue.main.async{
             Checkout.start(
                 createOrder: { createOrderAction in
                     createOrderAction.set(orderId: paymentId as String)
                 }, onApprove: { approval in
                     approval.actions.capture { (response, error) in
-                        if(!shoudGetOrderDetails) { onMessage([NSNull(), "approved"]) }
+                        if(!shouldGetOrderDetails) { onMessage([NSNull(), "approved"]) }
                     }
-                    if(shoudGetOrderDetails) {
+                    if(shouldGetOrderDetails) {
                         approval.actions.getOrderDetails { details, error in
                             onMessage([NSNull(), details])
                         }
