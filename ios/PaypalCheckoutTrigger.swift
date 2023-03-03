@@ -5,7 +5,7 @@ import PayPalCheckout
 class PaypalCheckoutTrigger: NSObject {
     
     @objc
-    func triggerPaypalCheckout(_ paymentId: NSString, needDetails shouldGetOrderDetails: BOOL, onMessageCallback onMessage: @escaping RCTResponseSenderBlock) {
+    func triggerPaypalCheckout(_ paymentId: NSString, needDetails shouldGetOrderDetails: Bool, onMessageCallback onMessage: @escaping RCTResponseSenderBlock) {
         DispatchQueue.main.async{
             Checkout.start(
                 createOrder: { createOrderAction in
@@ -16,7 +16,17 @@ class PaypalCheckoutTrigger: NSObject {
                     }
                     if(shouldGetOrderDetails) {
                         approval.actions.getOrderDetails { details, error in
-                            onMessage([NSNull(), details])
+                            let encoder = JSONEncoder()
+                            if let jsonData = try? encoder.encode(details?.payer),
+                               let jsonString = String(data: jsonData, encoding: .utf8) {
+                                let resultsDict = [
+                                  "result" : "approved",
+                                  "payer" : jsonString
+                                ]
+                                onMessage([NSNull(), resultsDict])
+                            } else {
+                                onMessage([NSNull(), "approved"])
+                            }
                         }
                     }
                 }, onCancel: {
