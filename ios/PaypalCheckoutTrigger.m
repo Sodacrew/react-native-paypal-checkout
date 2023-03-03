@@ -2,5 +2,5 @@
 #import <Foundation/Foundation.h>
 
 @interface RCT_EXTERN_MODULE(PaypalCheckoutTrigger, NSObject)
-RCT_EXTERN_METHOD(triggerPaypalCheckout: (NSString *)paymentId onMessageCallback:(RCTResponseSenderBlock)onMessage)
+RCT_EXTERN_METHOD(triggerPaypalCheckout: (NSString *)paymentId onMessageCallback:(RCTResponseSenderBlock)onMessage needDetails:(bool)needDetails)
 @end

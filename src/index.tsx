@@ -9,6 +9,7 @@ import {
 interface TriggerArgs {
   paymentId: string;
   onMessage: (error: any, result: any) => void;
+  needDetails?: boolean;
 }
 // interface NativeProps {
 //   paymentId: string;
@@ -26,5 +27,6 @@ interface TriggerArgs {
 export const triggerPaypalCheckout = (args: TriggerArgs) =>
   NativeModules.PaypalCheckoutTrigger.triggerPaypalCheckout(
     args.paymentId,
-    args.onMessage
+    args.onMessage,
+    args.needDetails
   );
