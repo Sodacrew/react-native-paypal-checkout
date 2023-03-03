@@ -12,7 +12,10 @@ class PaypalCheckoutTrigger: NSObject {
                     createOrderAction.set(orderId: paymentId as String)
                 }, onApprove: { approval in
                     approval.actions.capture { (response, error) in
-                        if(!shouldGetOrderDetails) { onMessage([NSNull(), "approved"]) }
+                        let resultsDict = [
+                            "result" : "approved",                          
+                        ]
+                        if(!shouldGetOrderDetails) { onMessage([NSNull(), resultsDict]) }
                     }
                     if(shouldGetOrderDetails) {
                         approval.actions.getOrderDetails { details, error in
@@ -25,11 +28,17 @@ class PaypalCheckoutTrigger: NSObject {
                                 ]
                                 onMessage([NSNull(), resultsDict])
                             } else {
-                                onMessage([NSNull(), "approved"])
+                                let resultsDict = [
+                                    "result" : "approved",                          
+                                ]
+                                onMessage([NSNull(), resultsDict])
                             }
                         }
                     }
                 }, onCancel: {
+                    let resultsDict = [
+                        "result" : "cancelled",                          
+                    ]
                     onMessage([NSNull(), "cancelled"])
                 }, onError: { error in
                     onMessage([error])
