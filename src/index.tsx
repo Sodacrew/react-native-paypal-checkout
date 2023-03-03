@@ -27,6 +27,6 @@ interface TriggerArgs {
 export const triggerPaypalCheckout = (args: TriggerArgs) =>
   NativeModules.PaypalCheckoutTrigger.triggerPaypalCheckout(
     args.paymentId,
-    args.onMessage,
-    args.needDetails
+    args.needDetails,
+    args.onMessage
   );
