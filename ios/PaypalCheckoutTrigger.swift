@@ -5,7 +5,7 @@ import PayPalCheckout
 class PaypalCheckoutTrigger: NSObject {
     
     @objc
-    func triggerPaypalCheckout(_ paymentId: NSString, needDetails shouldGetOrderDetails: Bool, onMessageCallback onMessage: @escaping RCTResponseSenderBlock) {
+    func triggerPaypalCheckout(_ paymentId: NSString, needDetails shouldGetOrderDetails: BOOL, onMessageCallback onMessage: @escaping RCTResponseSenderBlock) {
         DispatchQueue.main.async{
             Checkout.start(
                 createOrder: { createOrderAction in
