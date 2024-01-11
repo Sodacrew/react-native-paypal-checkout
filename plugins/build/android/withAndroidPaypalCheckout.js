@@ -33,7 +33,6 @@ const modifyProjectBuildGradle = (config) => {
 };
 const modifyAppBuildGradle = (config, props) => {
     return (0, config_plugins_1.withAppBuildGradle)(config, (_props) => {
-        var _a;
         if (_props.modResults.contents.includes(PAYPAL_COMPLIE_OPTIONS_COMMENT)) {
             console.log('paypal checkout compile options already added');
         }
@@ -77,7 +76,7 @@ const modifyAppBuildGradle = (config, props) => {
             }
             else {
                 _props.modResults.contents = _props.modResults.contents.replace('dependencies {', `dependencies {
-    implementation('${DEPENDENCY_NAME}${(_a = props.androidSDKVersion) !== null && _a !== void 0 ? _a : '0.7.3'}')
+    implementation('${DEPENDENCY_NAME}${props.androidSDKVersion ?? '0.7.3'}')
     `);
             }
         }
@@ -121,12 +120,11 @@ public class MainApplication extends Application`);
 };
 const modifyAndroidManifest = (config, props) => {
     return (0, config_plugins_1.withAndroidManifest)(config, (_props) => {
-        var _a, _b;
         const mainApplication = getMainApplicationOrThrow(_props.modResults);
         if (!mainApplication)
             return _props;
-        const paypalRedirectActivityIndex = (_b = (_a = mainApplication.activity) === null || _a === void 0 ? void 0 : _a.findIndex((activity) => activity.$['android:name'] ===
-            'com.paypal.openid.RedirectUriReceiverActivity')) !== null && _b !== void 0 ? _b : 0;
+        const paypalRedirectActivityIndex = mainApplication.activity?.findIndex((activity) => activity.$['android:name'] ===
+            'com.paypal.openid.RedirectUriReceiverActivity') ?? 0;
         const newPaypalRedirectActivity = {
             '$': {
                 'android:name': 'com.paypal.openid.RedirectUriReceiverActivity',

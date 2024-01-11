@@ -1,6 +1,6 @@
 {
   "name": "@sodacrew/react-native-paypal-checkout",
-  "version": "1.6.4",
+  "version": "2.0.0",
   "description": "paypal checkout sdk for react native",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -150,7 +150,7 @@
     ]
   },
   "dependencies": {
-    "@expo/config-plugins": "^5.0.1",
-    "expo-module-scripts": "^2.1.1"
+    "@expo/config-plugins": "~7.2.2",
+    "expo-module-scripts": "^3.1.0"
   }
 }
